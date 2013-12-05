@@ -85,6 +85,7 @@
     <ClInclude Include="done1d.h" />
     <ClInclude Include="root1d.h" />
     <ClInclude Include="step1d.h" />
+    <ClInclude Include="xllroot.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\xllfunction\xllfunction.cpp" />

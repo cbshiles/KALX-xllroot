@@ -10,6 +10,13 @@ namespace fms {
 
 	namespace done1d {
 
+		template<class X>
+		struct done {
+			bool operator()(const root1d<X>& s) { return call(s); }
+		private:
+			virtual bool call(const root1d<X>&) = 0;
+		};
+
 		// for roots near 0
 		template<class X>
 		inline std::function<bool(const root1d<X>&)> interval(X abs = std::numeric_limits<X>::epsilon(), X rel = 0)

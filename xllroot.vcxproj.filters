@@ -27,6 +27,9 @@
     <ClInclude Include="step1d.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="xllroot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="xllroot1d.cpp">
