@@ -8,6 +8,9 @@ namespace fms {
 
 	template<class X> class root1d;
 
+	template<class X>
+	using done1d_f = std::function<bool(const root1d<X>&)>;
+
 	namespace done1d {
 
 		template<class X>
@@ -19,7 +22,7 @@ namespace fms {
 
 		// for roots near 0
 		template<class X>
-		inline std::function<bool(const root1d<X>&)> interval(X abs = std::numeric_limits<X>::epsilon(), X rel = 0)
+		inline done1d_f<X> interval(X abs = std::numeric_limits<X>::epsilon(), X rel = 0)
 		{
 			return [abs,rel](const root1d<X>& s) {
 				X min_ = s.x[0]*s.x[1] < 0 ? 0 : (std::min)(fabs(s.x[0]), fabs(s.x[1]));

@@ -89,7 +89,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\xllfunction\xllfunction.cpp" />
+    <ClCompile Include="xlldone1d.cpp" />
     <ClCompile Include="xllroot1d.cpp" />
+    <ClCompile Include="xllstep1d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\xll8\xll.vcxproj">

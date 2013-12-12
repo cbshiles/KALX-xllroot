@@ -38,5 +38,11 @@
     <ClCompile Include="..\xllfunction\xllfunction.cpp">
       <Filter>xllfunction</Filter>
     </ClCompile>
+    <ClCompile Include="xlldone1d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="xllstep1d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

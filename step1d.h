@@ -6,6 +6,9 @@ namespace fms {
 
 	template<class X> class root1d;
 
+	template<class X>
+	using step1d_f = std::function<X(root1d<X>&)>;
+
 	namespace step1d {
 
 		template<class X = double>
@@ -25,7 +28,7 @@ namespace fms {
 				s.swap(1,2);
 			}
 
-			return x[0];
+			return s.x[0];
 		}
 
 		template<class X = double>
@@ -40,7 +43,7 @@ namespace fms {
 		{
 			ensure (s.x.size() >= 2);
 
-			s.push(secant(s.x[0], s.x[1], s.y[0], s.y[1]);
+			s.push(secant(s.x[0], s.x[1], s.y[0], s.y[1]));
 
 			return s.x[0];
 		}
@@ -52,9 +55,11 @@ namespace fms {
 			X dy1 = y2 - y0;
 			X dy2 = y0 - y1;
 
-			ensure (dy0 != 0 && dy1 != 0 && dy2 != 0);
+			ensure (dy0 != 0);
+			ensure (dy1 != 0);
+			ensure (dy2 != 0);
 
-			return x0*y1*y2/(dy1*dy2) + x1*y2*y0/(dy2*dy0) + x2*y0*y1/(dy0*dy1));
+			return x0*y1*y2/(dy1*dy2) + x1*y2*y0/(dy2*dy0) + x2*y0*y1/(dy0*dy1);
 		}
 		template<class X = double>
 		inline X inverse_quadratic(root1d<X>& s)
@@ -63,7 +68,7 @@ namespace fms {
 
 			s.push(inverse_quadratic(s.x[0], s.x[1], s.x[2], s.y[0], s.y[1], s.y[2]));
 
-			return x[0];
+			return s.x[0];
 		}
 
 		template<class X = double>
@@ -81,13 +86,13 @@ namespace fms {
 			return x[0];
 		}
 		template<class X = double>
-		inline X newton(root1d<X>& s, const std::function<X(const X&)>& df)
+		inline X newton(root1d<X>& s)
 		{
 			ensure (s.x.size() >= 1);
 
-			s.push(newton(s.x[0], s.y[0], df(s.x[0])));
+			s.push(newton(s.x[0], s.y[0], s.df(s.x[0])));
 
-			return x[0];
+			return s.x[0];
 		}
 
 	} // step1d

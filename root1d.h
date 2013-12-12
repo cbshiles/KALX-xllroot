@@ -12,11 +12,14 @@ namespace fms {
 	template<class X = double>
 	class root1d {
 	public:
-		std::function<X(const X&)> f;
+		std::function<X(const X&)> f, df;
 		std::deque<X> x;
 		std::deque<X> y;
 		root1d(const std::function<X(const X&)>& _f)
 			: f(_f)
+		{ }
+		root1d(const std::function<X(const X&)>& _f, const std::function<X(const X&)>& _df)
+			: f(_f), df(_df)
 		{ }
 		root1d(const root1d&) = default;
 		root1d& operator=(const root1d&) = default;
@@ -87,21 +90,60 @@ namespace fms {
 
 		bool bracketed() const
 		{
-			ensure (y.size() >= 2);
-
-			return y[0]*y[1] < 0;
+			return y.size() < 2 ? false : y[0]*y[1] < 0;
 		}
 		
-		X bracket(X m = 1) // minimum absolute slope
+		X bracket(X dx = 1) // initial step size
 		{
-			ensure (x.size() >= 2);
+			ensure (x.size() >= 1);
 
+			while (!bracketed()) {
+				X yp = f(x[0] + dx);
+				X ym = f(x[0] - dx);
+				X mp = (yp - y[0])/dx;
+				X mm = (y[0] - ym)/dx;
+				X ddf = (mp - mm)/dx;
 
-			X m_ = (y[0] - y[1])/(x[0] - x[1]);
-			m = m_ > m ? m : m_ < -m ? -m : m_; // |m| > 1
+				if (ddf < 0) { 
+					// concave - usually overshoots
+					// use slope of best approximation
+					if (fabs(yp) < fabs(ym))
+						push(step1d::newton(x[0], y[0], mp));
+					else
+						push(step1d::newton(x[0], y[0], mm));
+				}
+				else { 
+					// convex - usually undershoots
+					X x0, y0;
 
-			while (!bracketed() && !done(done1d::residual<double>())) {
-				push(x[0] - y[0]/m);
+					// use slope of worst approximation
+					X m = fabs(yp) < fabs(ym) ? mm : mp;
+
+					// |m| >= 1
+					if (-1 < m && m < 0)
+						m = -1;
+					else if(0 < m && m < 1)
+						m = 1;
+					
+					x0 = step1d::newton(x[0], y[0], m);
+					y0 = f(x0);
+
+					if (y0*y[0] > 0) { // not bracketed
+						yp = f(x0 + dx);
+						ym = f(x0 - dx);
+						
+						if (fabs(yp) < fabs(ym))
+							push(x0 + dx, yp);
+						else
+							push(x0 - dx, ym);
+					}
+					else {
+						push(x0, y0);
+					}
+				}
+
+				if (done(done1d::interval<double>()))
+					break;
 			}
 
 			return x[0];
