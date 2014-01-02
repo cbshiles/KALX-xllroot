@@ -9,11 +9,11 @@ typedef traits<XLOPERX>::xfp xfp;
 typedef traits<XLOPERX>::xword xword;
 
 static AddInX xai_root1d(
-	FunctionX(XLL_HANDLEX, _T("?xll_root1d"), _T("XLL.ROOT1D"))
+	FunctionX(XLL_HANDLEX, _T("?xll_root1d"), CATEGORY_ _T("ROOT1D"))
 	.Handle(_T("Function"), _T("is a handle to a function."))
 	.Handle(_T("_Derivative"), _T("is a handle to an optional derivative of Function."))
 	.Uncalced()
-	.Category(_T("XLL"))
+	.Category(CATEGORY)
 	.FunctionHelp(_T("Return a handle to a one dimensional root finder."))
 );
 HANDLEX WINAPI xll_root1d(HANDLEX f, HANDLEX df)
@@ -46,9 +46,9 @@ HANDLEX WINAPI xll_root1d(HANDLEX f, HANDLEX df)
 }
 
 static AddInX xai_root1d_x(
-	FunctionX(XLL_FPX, _T("?xll_root1d_x"), _T("XLL.ROOT1D.X"))
+	FunctionX(XLL_FPX, _T("?xll_root1d_x"), CATEGORY_ _T("ROOT1D.X"))
 	.Handle(_T("Root"), _T("is a handle returned by XLL.ROOT1D"))
-	.Category(_T("XLL"))
+	.Category(CATEGORY)
 	.FunctionHelp(_T("Return root approximations."))
 );
 xfp* WINAPI xll_root1d_x(HANDLEX h)
@@ -69,9 +69,9 @@ xfp* WINAPI xll_root1d_x(HANDLEX h)
 	return x.get();
 }
 static AddInX xai_root1d_y(
-	FunctionX(XLL_FPX, _T("?xll_root1d_y"), _T("XLL.ROOT1D.Y"))
+	FunctionX(XLL_FPX, _T("?xll_root1d_y"), CATEGORY_ _T("ROOT1D.Y"))
 	.Handle(_T("Root"), _T("is a handle returned by XLL.ROOT1D"))
-	.Category(_T("XLL"))
+	.Category(CATEGORY)
 	.FunctionHelp(_T("Return residuals."))
 );
 xfp* WINAPI xll_root1d_y(HANDLEX h)
@@ -93,11 +93,11 @@ xfp* WINAPI xll_root1d_y(HANDLEX h)
 }
 
 static AddInX xai_root1d_bracket(
-	FunctionX(XLL_DOUBLEX, _T("?xll_root1d_bracket"), _T("XLL.ROOT1D.BRACKET"))
+	FunctionX(XLL_DOUBLEX, _T("?xll_root1d_bracket"), CATEGORY_ _T("ROOT1D.BRACKET"))
 	.Handle(_T("Root"), _T("is a handle returned by XLL.ROOT1D"))
 	.Num(_T("Delta"), _T("is the initial incremential step size."))
 	.Uncalced()
-	.Category(_T("XLL"))
+	.Category(CATEGORY)
 	.FunctionHelp(_T("Bracket the root of a monotonic function."))
 );
 HANDLEX WINAPI xll_root1d_bracket(HANDLEX h, double dx)
@@ -121,10 +121,10 @@ HANDLEX WINAPI xll_root1d_bracket(HANDLEX h, double dx)
 }
 
 static AddInX xai_root1d_done(
-	FunctionX(XLL_BOOLX, _T("?xll_root1d_done"), _T("XLL.ROOT1D.DONE"))
+	FunctionX(XLL_BOOLX, _T("?xll_root1d_done"), CATEGORY_ _T("ROOT1D.DONE"))
 	.Handle(_T("Root"), _T("is a handle returned by XLL.ROOT1D"))
 	.Handle(_T("Done"), _T("is a handle returned by XLL.ROOT1D.DONE.*"))
-	.Category(_T("XLL"))
+	.Category(CATEGORY)
 	.FunctionHelp(_T("Test convergence."))
 );
 BOOL WINAPI xll_root1d_done(HANDLEX h, HANDLEX d)
@@ -146,10 +146,10 @@ BOOL WINAPI xll_root1d_done(HANDLEX h, HANDLEX d)
 }
 
 static AddInX xai_root1d_init(
-	FunctionX(XLL_HANDLEX, _T("?xll_root1d_init"), _T("XLL.ROOT1D.INIT"))
+	FunctionX(XLL_HANDLEX, _T("?xll_root1d_init"), CATEGORY_ _T("ROOT1D.INIT"))
 	.Handle(_T("Root"), _T("is a handle returned by XLL.ROOT1D"))
 	.Array(_T("Init"), _T("is a set of initial values."))
-	.Category(_T("XLL"))
+	.Category(CATEGORY)
 	.FunctionHelp(_T("Initialize abscissae."))
 );
 HANDLEX WINAPI xll_root1d_init(HANDLEX h, xfp* px)
@@ -169,10 +169,10 @@ HANDLEX WINAPI xll_root1d_init(HANDLEX h, xfp* px)
 }
 
 static AddInX xai_root1d_step(
-	FunctionX(XLL_HANDLEX, _T("?xll_root1d_step"), _T("XLL.ROOT1D.STEP"))
+	FunctionX(XLL_HANDLEX, _T("?xll_root1d_step"), CATEGORY_ _T("ROOT1D.STEP"))
 	.Handle(_T("Root"), _T("is a handle returned by XLL.ROOT1D"))
 	.Handle(_T("Step"), _T("is a handle returned by XLL.ROOT1D.STEP.*"))
-	.Category(_T("XLL"))
+	.Category(CATEGORY)
 	.FunctionHelp(_T("Get next approximation."))
 );
 HANDLEX WINAPI xll_root1d_step(HANDLEX h, HANDLEX s)

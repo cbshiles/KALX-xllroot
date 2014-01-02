@@ -3,3 +3,6 @@
 #pragma once
 #include "../xll8/xll/xll.h"
 #include "root1d.h"
+
+#define CATEGORY _T("XLL")
+#define CATEGORY_ CATEGORY _T(".")
